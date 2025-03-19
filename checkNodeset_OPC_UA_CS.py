@@ -23,12 +23,12 @@ def parse_elements(xml_file):
 
         # Iterate through all UA elements
         for searched_ua_element in SEARCHED_UA_ELEMENTS:
-            for uaelement in root.findall("ua:" + searched_ua_element, ns):
+            for uaelement in root.findall('.//ua:' + searched_ua_element, ns):
                 uaelement_info = {"file": xml_file, "uaElement": uaelement.tag}
 
                 # Find displayName and description sub-elements
-                display_name = uaelement.find("DisplayName")
-                description = uaelement.find("Description")
+                display_name = uaelement.find("ua:DisplayName", ns)
+                description = uaelement.find("ua:Description", ns)
 
                 if display_name is not None:
                     uaelement_info['displayName'] = display_name.text
@@ -66,6 +66,6 @@ def main(directory):
         print("No UA elements found in the XML files.")
 
 if __name__ == "__main__":
-    directory = input("Enter the directory path of the nodeset: ")
-    #directory = 'E:/PROJECTS/UA-Nodeset/PADIM'
+    #directory = input("Enter the directory path of the nodeset: ")
+    directory = 'E:/PROJECTS/UA-Nodeset/PADIM'
     main(directory)
